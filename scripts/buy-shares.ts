@@ -22,7 +22,8 @@ const slippage = Number(slippageStr ?? 2);
 
 // 1. Quote
 const { tokensIn } = await client.quoteBuy({ marketAddress, outcomeIdx, sharesOut });
-const maxTokensIn = tokensIn * BigInt(100 + slippage) / 100n;
+const slippageBps = BigInt(Math.round(slippage * 100));
+const maxTokensIn = tokensIn * (10_000n + slippageBps) / 10_000n;
 
 console.log("Market:    " + marketAddress);
 console.log("Outcome:   " + outcomeIdx);
